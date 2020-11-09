@@ -1,0 +1,18 @@
+{
+  "name": "ong-social-common",
+  "version": "1.0.0",
+  "description": "Common npm code shared across web and mobile apps.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onG-social/ong-social-common.git"
+  },
+  "author": "SoMee Social",
+  "homepage": "https://github.com/onG-social/ong-social-common#readme",
+  "dependencies": {
+    "lodash": "4.17.20",
+    "react": "16.14.0"
+  }
+}
