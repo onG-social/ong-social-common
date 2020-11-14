@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Common npm code shared across web and mobile apps.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "release": "npm-github-release"
   },
   "repository": {
     "type": "git",
@@ -14,5 +14,8 @@
   "dependencies": {
     "lodash": "4.17.20",
     "react": "16.14.0"
+  },
+  "devDependencies": {
+    "npm-github-release": "^0.13.0"
   }
 }
