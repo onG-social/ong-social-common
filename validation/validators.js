@@ -40,6 +40,16 @@ export const useValidators = () => {
                 message: output ? null : message || 'Validators.pattern',
                 output
             };
-        }
+        },
+
+        genericValidator: (value, { criteria, message }) => {
+			const output = criteria();
+			return {
+				message: output
+					? null
+					: message || t('Validators.genericValidator'),
+				output,
+			};
+		},
     };
 };

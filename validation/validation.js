@@ -37,3 +37,11 @@ export const pattern = (criteria, message) => {
         message
     };
 };
+
+export const genericValidator = (criteria, message) => {
+	return {
+		rule: 'genericValidator',
+		criteria,
+		message,
+	};
+};
