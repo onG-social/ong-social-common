@@ -1,8 +1,8 @@
 {
-  "name": "my-webpack-project",
+  "name": "ong-social-common",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "description": "My webpack project",
+  "description": "Common npm code shared across web and mobile apps.",
   "scripts": {
     "prepare": "npm run build",
     "build": "webpack"
