@@ -1,4 +1,11 @@
 module.exports = {
+    entry: {
+      useForm: './src/validation/index.js'
+    },
+    output: {
+      libraryTarget: 'commonjs2',
+  },
+  
     module: {
       rules: [
         {
@@ -10,7 +17,7 @@ module.exports = {
         }
       ]
     },
-    // externals: {
-    //     react: 'react',
-    //   }
+    externals: {
+        react: 'react',
+      }
   };
