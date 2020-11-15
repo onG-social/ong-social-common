@@ -1,3 +1,15 @@
-# ong-social-common
+# 🚀 Welcome to your new awesome project!
 
-Common npm code shared across web and mobile apps.
+This project has been created using **webpack scaffold**, you can now run
+
+```
+npm run build
+```
+
+or
+
+```
+yarn build
+```
+
+to bundle your application
