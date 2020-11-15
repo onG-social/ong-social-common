@@ -1,19 +1,17 @@
-import { React, useContext, useEffect, useState, useMemo } from 'react';
-
 export const useValidators = () => {
 
     return {
         required: (value, {message}) => {
             const output = value?.length > 0;
             return {
-                message: output ? null : message || 'Validators.required',
+                message: output ? null : message || 'useForm.required',
                 output
             };
         },
         maxLength: (value,  {criteria, message}) => {
             const output = value?.length === 0 || value?.length <= criteria;
             return {
-                message: output ? null : {id: message || 'Validators.maxLength', length: criteria},
+                message: output ? null : {id: message || 'useForm.maxLength', length: criteria},
                 output
             };
 
@@ -21,7 +19,7 @@ export const useValidators = () => {
         minLength: (value, {criteria, message}) => {
             const output = value?.length === 0 || value?.length >= criteria;
             return {
-                message: output ? null : {id: message || 'Validators.minLength', length: criteria},
+                message: output ? null : {id: message || 'useForm.minLength', length: criteria},
                 output
             };
         },
@@ -29,7 +27,7 @@ export const useValidators = () => {
             const pattern = /\S+@\S+\.\S+/;
             const output = pattern.test(value);
             return {
-                message: output ? null : message || 'Validators.email',
+                message: output ? null : message || 'useForm.email',
                 output
             };
         },
@@ -37,7 +35,7 @@ export const useValidators = () => {
             const pattern = new RegExp(criteria);
             const output = pattern.test(value);
             return {
-                message: output ? null : message || 'Validators.pattern',
+                message: output ? null : message || 'useForm.pattern',
                 output
             };
         },
@@ -47,7 +45,7 @@ export const useValidators = () => {
 			return {
 				message: output
 					? null
-					: message || t('Validators.genericValidator'),
+					: message || 'useForm.genericValidator',
 				output,
 			};
 		},
