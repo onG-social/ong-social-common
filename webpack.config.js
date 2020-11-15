@@ -1,9 +1,7 @@
 const path = require('path');
 module.exports = {
     entry: {
-      useForm: './src/validation/index.js'
-    },
-    entry: {
+      useForm: './src/useForm/index.js',
       main: './src/index.js'
     },
     output: {
@@ -25,5 +23,6 @@ module.exports = {
     },
     externals: {
         react: 'react',
+        lodash: 'lodash'
       }
   };

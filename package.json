@@ -5,7 +5,8 @@
   "main": "lib/main/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -13,10 +14,8 @@
   },
   "author": "SoMee Social",
   "homepage": "https://github.com/onG-social/ong-social-common#readme",
-  "dependencies": {
-    "lodash": "4.17.20"
-  },
   "peerdependencies": {
+    "lodash": ">=4.17.20",
     "react": ">=16.14.0"
   },
   "devDependencies": {
