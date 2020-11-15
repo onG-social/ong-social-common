@@ -2,7 +2,7 @@
   "name": "ong-social-common",
   "version": "1.0.0",
   "description": "Common npm code shared across web and mobile apps.",
-  "main": "dist/main.js",
+  "main": "lib/main/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production"

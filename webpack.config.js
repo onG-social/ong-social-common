@@ -1,9 +1,15 @@
+const path = require('path');
 module.exports = {
     entry: {
       useForm: './src/validation/index.js'
     },
+    entry: {
+      main: './src/index.js'
+    },
     output: {
+      path:path.resolve(__dirname, "lib"),
       libraryTarget: 'commonjs2',
+      filename: '[name]/index.js'
   },
   
     module: {
