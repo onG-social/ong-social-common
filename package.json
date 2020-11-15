@@ -2,7 +2,7 @@
   "name": "ong-social-common",
   "version": "1.0.0",
   "description": "Common npm code shared across web and mobile apps.",
-  "main" : "dist/main.js",
+  "main": "dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production"
@@ -14,12 +14,10 @@
   "author": "SoMee Social",
   "homepage": "https://github.com/onG-social/ong-social-common#readme",
   "dependencies": {
-    "lodash": "4.17.20"
-  },
-  "peerdependencies": {
+    "lodash": "4.17.20",
     "react": "16.14.0"
   },
-  "devDependencies": {  
+  "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
