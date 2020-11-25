@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { isObject } from 'lodash';
+import { isObject, get } from 'lodash';
 import {useValidators} from './validators';
 
 
@@ -54,27 +54,38 @@ export const useForm = (fields, initialState = {}) => {
     const [errorMessages, setErrorMessages] = useState({});
     const validations = useValidators();
 
+    const addPath = (fieldName, fieldPath) => fieldPath ? `${fieldPath}.${fieldName}` : fieldName;
+
     useEffect(()=> {
         const newMessages = {};
-        Object.keys(fields).forEach(fieldName => {
-            let fieldErrorMessage;
-            const field = fields[fieldName];
-            field.forEach(validation => {
-                const requirements = standardizeValidation(validation);
-                const validator = validation.validator || validations[validation.rule];
-                const value = formData[fieldName];
-                const {message} = validator(value, requirements);
-                if(message && !fieldErrorMessage){
-                    fieldErrorMessage = message || null;
+        const validate = (_fields, fieldPath) => {
+            Object.keys(_fields).forEach(fieldName => {
+                const fieldNameWithPath = addPath(fieldName, fieldPath);
+                let fieldErrorMessage;
+                const field = _fields[fieldName];
+                if (Array.isArray(field)) {
+                    field.forEach(validation => {
+                        const requirements = standardizeValidation(validation);
+                        const validator = validation.validator || validations[validation.rule];
+                        const value = get(formData, fieldNameWithPath);
+                        const {message} = validator(value, requirements);
+                        if(message && !fieldErrorMessage){
+                            fieldErrorMessage = message || null;
+                        }
+                    });
+                    newMessages[fieldNameWithPath] = fieldErrorMessage;
+                } else {
+                    validate(field, fieldNameWithPath);
                 }
             });
-            newMessages[fieldName] = fieldErrorMessage;
-        });
+        }
+        validate(fields);
         setErrorMessages(newMessages);
     },[formData]);
 
     const createFieldProps = (fieldName) => {
         const onChange = newValue => {
+            console.log('on change ', fieldName)
             const newData = {
                 ...formData,
                 [fieldName]: newValue?.target ? newValue?.target?.value : newValue
@@ -83,20 +94,28 @@ export const useForm = (fields, initialState = {}) => {
         };
 
         return {
-            value: formData[fieldName],
+            fieldName: fieldName,
+            value: get(formData, fieldName),
             onChange,
             errorMessage: errorMessages[fieldName]
         };
     };
 
-    const transformedFields = Object.keys(fields).reduce((acc, fieldName) => {
-        acc[fieldName] = createFieldProps(fieldName);
-        return acc;
-    }, {});
+    const transform = (_fields, fieldPath) => {
+        return Object.keys(_fields).reduce((acc, fieldName) => {
+            if (_fields[fieldName] && !Array.isArray(_fields[fieldName]))
+                acc[fieldName] = transform(_fields[fieldName], addPath(fieldName, fieldPath));
+            else 
+                acc[fieldName] = createFieldProps(addPath(fieldName, fieldPath));
+            return acc;
+        }, {});
+    };
+
+    const transformedFields = transform(fields);
 
     const isValid = () => {
         const allValidations = Object.keys(fields).map(fieldName => {
-            const value = formData[fieldName];
+            const value = get(formData, fieldName);
             const response = fields[fieldName].map(validation => {
                 const requirements = standardizeValidation(validation);
                 const validator = validation.validator || validations[validation.rule];
@@ -113,7 +132,10 @@ export const useForm = (fields, initialState = {}) => {
             errorMessages,
             isValid: () => isValid(),
             value: formData,
-            setData: setFormData
+            setData: (_data) => {
+                console.log('setting data', _data);
+                setFormData(_data)
+            }
         }
     ];
 };
