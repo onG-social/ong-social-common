@@ -1,6 +1,6 @@
 {
   "name": "ong-social-common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common npm code shared across web and mobile apps.",
   "main": "lib/main/index.js",
   "scripts": {
