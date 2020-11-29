@@ -49,16 +49,14 @@ const standardizeValidation = (validation) => {
     };
 };
 
-export const useForm = (fields) => {
-    debugger;
-    const [formData, setFormData] = useState({});
+export const useForm = (fields, initialState = {}) => {
+    const [formData, setFormData] = useState(initialState);
     const [errorMessages, setErrorMessages] = useState({});
     const validations = useValidators();
 
     useEffect(()=> {
         const newMessages = {};
         Object.keys(fields).forEach(fieldName => {
-            debugger;
             let fieldErrorMessage;
             const field = fields[fieldName];
             field.forEach(validation => {
@@ -115,6 +113,7 @@ export const useForm = (fields) => {
             errorMessages,
             isValid: () => isValid(),
             value: formData,
+            setData: (data) => setFormData(data)
         }
     ];
 };
