@@ -50,7 +50,6 @@ const standardizeValidation = (validation) => {
 };
 
 export const useForm = (fields, initialState = {}) => {
-    debugger;
     const [formData, setFormData] = useState(initialState);
     const [errorMessages, setErrorMessages] = useState({});
     const validations = useValidators();
@@ -58,7 +57,6 @@ export const useForm = (fields, initialState = {}) => {
     useEffect(()=> {
         const newMessages = {};
         Object.keys(fields).forEach(fieldName => {
-            debugger;
             let fieldErrorMessage;
             const field = fields[fieldName];
             field.forEach(validation => {
