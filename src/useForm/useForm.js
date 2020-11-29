@@ -49,9 +49,9 @@ const standardizeValidation = (validation) => {
     };
 };
 
-export const useForm = (fields) => {
+export const useForm = (fields, initialState = {}) => {
     debugger;
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState(initialState);
     const [errorMessages, setErrorMessages] = useState({});
     const validations = useValidators();
 
@@ -115,6 +115,7 @@ export const useForm = (fields) => {
             errorMessages,
             isValid: () => isValid(),
             value: formData,
+            setData: (data) => setFormData(data)
         }
     ];
 };
