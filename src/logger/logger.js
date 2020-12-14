@@ -81,7 +81,7 @@ export const ErrorCatcher = ({ children, config }) => {
     transports.push(consoleTransport);
   }
 
-  logger = (callingModule = '') => createLogger({
+  logger = createLogger({
     level: LOG_LEVEL,
     transports,
     exceptionHandlers: transports,
