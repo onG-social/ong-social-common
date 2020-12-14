@@ -2,7 +2,7 @@
 import { ErrorBoundary as WebErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 const moment = require('moment');
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format } = require('winston');
 const { ElasticsearchTransport } = require('winston-elasticsearch');
 
 const { combine, timestamp, printf, label } = format;
@@ -11,7 +11,6 @@ const { combine, timestamp, printf, label } = format;
 let logger;
 
 export const ErrorCatcher = ({ children, config }) => {
-  const [state, dispatch] = useImmer({ ...defaultState });
 
   const {
     isMOBILE = true,
@@ -61,25 +60,6 @@ export const ErrorCatcher = ({ children, config }) => {
   const esTransport = new ElasticsearchTransport(esTransportOpts);
 
   const transports = [ esTransport ];
-
-  if (isMOBILE === false) {
-    const fsTransport = new DailyRotateFile({
-      filename: `./logs/${INDEX}_${DD_ENV}_%DATE%.log`,
-      datePattern: 'YYYY-MM-DD',
-      zippedArchive: true,
-      maxSize: '20m',
-      maxFiles: '14d',
-    });
-  
-    const consoleTransport = new transports.Console({
-      format: combine(
-        timestamp(), format.splat(), format.simple(), myFormat,
-      )
-    });
-
-    transports.push(fsTransport);
-    transports.push(consoleTransport);
-  }
 
   logger = createLogger({
     level: LOG_LEVEL,
