@@ -49,7 +49,8 @@ const standardizeValidation = (validation) => {
     };
 };
 
-export const useForm = (fields, initialState = {}) => {
+export const useForm = (initialFields, initialState = {}) => {
+    const [fields, setFields] = useState(initialFields);
     const [formData, setFormData] = useState(initialState);
     const [errorMessages, setErrorMessages] = useState({});
     const [showErrors, setShowErrors] = useState(false);
@@ -116,7 +117,8 @@ export const useForm = (fields, initialState = {}) => {
             isValid: () => isValid(),
             value: formData,
             setData: (data) => setFormData(data),
-            showErrors: () => setShowErrors(true)
+            showErrors: () => setShowErrors(true),
+            setFields
         }
     ];
 };
