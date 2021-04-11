@@ -117,7 +117,7 @@ export const useForm = (initialFields, initialState = {}) => {
             isValid: () => isValid(),
             value: formData,
             setData: (data) => setFormData(data),
-            showErrors: () => setShowErrors(true),
+            showErrors: (status=true) => setShowErrors(status),
             setFields
         }
     ];
