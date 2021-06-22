@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { isObject } from 'lodash';
-import {useValidators} from './validators';
+import { useValidators } from './validators';
 
 
 /*
@@ -43,7 +43,7 @@ fields.email //
 
 
 const standardizeValidation = (validation) => {
-    if(isObject(validation)) return validation;
+    if (isObject(validation)) return validation;
     return {
         criteria: validation
     };
@@ -56,7 +56,7 @@ export const useForm = (initialFields, initialState = {}) => {
     const [showErrors, setShowErrors] = useState(false);
     const validations = useValidators();
 
-    useEffect(()=> {
+    useEffect(() => {
         const newMessages = {};
         Object.keys(fields).forEach(fieldName => {
             let fieldErrorMessage;
@@ -65,15 +65,15 @@ export const useForm = (initialFields, initialState = {}) => {
                 const requirements = standardizeValidation(validation);
                 const validator = validation.validator || validations[validation.rule];
                 const value = formData[fieldName];
-                const {message} = validator(value, requirements);
-                if(message && !fieldErrorMessage){
+                const { message } = validator(value, requirements);
+                if (message && !fieldErrorMessage) {
                     fieldErrorMessage = message || null;
                 }
             });
             newMessages[fieldName] = fieldErrorMessage;
         });
         setErrorMessages(newMessages);
-    },[formData]);
+    }, [formData]);
 
     const createFieldProps = (fieldName) => {
         const onChange = newValue => {
@@ -110,6 +110,11 @@ export const useForm = (initialFields, initialState = {}) => {
         return allValidations.flat(Infinity).every(val => val.output === true);
     };
 
+    const resetForm = () => {
+        setShowErrors(false);
+        setFormData(initialState);
+    }
+
     return [
         transformedFields,
         {
@@ -118,7 +123,8 @@ export const useForm = (initialFields, initialState = {}) => {
             value: formData,
             setData: (data) => setFormData(data),
             showErrors: () => setShowErrors(true),
-            setFields
+            setFields,
+            resetForm
         }
     ];
 };
