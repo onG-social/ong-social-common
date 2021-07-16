@@ -64,7 +64,7 @@ export const useForm = (initialFields, initialState = {}) => {
             field.forEach(validation => {
                 const requirements = standardizeValidation(validation);
                 const validator = validation.validator || validations[validation.rule];
-                const value = formData[fieldName];
+                const value = formData[fieldName]?.trim();
                 const { message } = validator(value, requirements);
                 if (message && !fieldErrorMessage) {
                     fieldErrorMessage = message || null;
@@ -99,7 +99,7 @@ export const useForm = (initialFields, initialState = {}) => {
 
     const isValid = () => {
         const allValidations = Object.keys(fields).map(fieldName => {
-            const value = formData[fieldName];
+            const value = formData[fieldName]?.trim();
             const response = fields[fieldName].map(validation => {
                 const requirements = standardizeValidation(validation);
                 const validator = validation.validator || validations[validation.rule];
